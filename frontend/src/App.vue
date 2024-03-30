@@ -5,7 +5,7 @@ import Bid from './components/Bid.vue';
 <template>
   <header class="flex items-center justify-between bg-black/20 px-10 lg:px-32 py-5">
     <a href="">
-      <div class="logo select-none text-lg font-black text-white">Your<span class="bg-white text-gray-800 rounded-sm">Domain</span></div>
+      <div class="logo select-none text-lg font-black text-white">Domain<span class="bg-white text-gray-800 rounded-sm">Bids</span></div>
     </a>
     <nav>
       <ul class="text-white">
