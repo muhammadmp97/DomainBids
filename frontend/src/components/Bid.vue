@@ -1,7 +1,12 @@
 <script setup>
 import { onMounted } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps(['domainName', 'topLevel', 'startingPrice', 'endsAt'])
+
+const startingPrice = computed(() => {
+  return new Intl.NumberFormat().format(props.startingPrice)
+})
 
 const days = defineModel('days', { default: 999 })
 const hours = defineModel('hours', { default: 0 })
