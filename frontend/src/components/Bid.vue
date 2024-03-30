@@ -3,7 +3,6 @@ import { onMounted } from 'vue';
 
 const props = defineProps(['domainName', 'topLevel', 'startingPrice', 'endsAt'])
 
-const countdownLoaded = false
 const days = defineModel('days', { default: 999 })
 const hours = defineModel('hours', { default: 0 })
 const minutes = defineModel('minutes', { default: 0 })
