@@ -1,27 +1,42 @@
 <script setup>
-import Bid from './components/Bid.vue';
+import { ref, computed } from 'vue'
+import Home from './components/Views/Home.vue'
+import NotFound from './components/Views/NotFound.vue'
+
+const routes = {
+  '/': Home
+}
+
+const currentPath = ref(window.location.hash)
+
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.hash
+})
+
+const currentView = computed(() => {
+  return routes[currentPath.value.slice(1) || '/'] || NotFound
+})
 </script>
 
 <template>
+  <div class="flex w-screen relative -z-50 -top-20 justify-center">
+    <div class="bg-blue-500 absolute blur-3xl opacity-15 w-2/4 h-32"></div>
+  </div>
+
   <header class="flex items-center justify-between bg-black/20 px-10 lg:px-32 py-5">
     <a href="">
       <div class="logo select-none text-lg font-black text-white">Domain<span class="bg-white text-gray-800 rounded-sm">Bids</span></div>
     </a>
     <nav>
       <ul class="text-white">
-        <li class="float-left mr-7 duration-300 hover:text-red-500"><a href="#">Submit a bid</a></li>
-        <li class="float-left mr-7 duration-300 hover:text-red-500"><a href="#">About</a></li>
-        <li class="float-left duration-300 hover:text-red-500"><a href="#">Contact</a></li>
+        <a href="#"><li class="float-left mr-7 duration-300 hover:text-red-500">Submit a bid</li></a>
+        <a href="#"><li class="float-left mr-7 duration-300 hover:text-red-500">About</li></a>
+        <a href="#"><li class="float-left duration-300 hover:text-red-500">Contact</li></a>
       </ul>
     </nav>
   </header>
 
-  <section id="Bids"
-    class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-y-4 gap-x-10 mt-10 mb-5 px-10 lg:px-32">
-    <bid :startingPrice="2000" domainName="best-seller" topLevel="net" endsAt="2024-04-03 12:00:00"></bid>
-    <bid :startingPrice="150" domainName="ilovecomupters" topLevel="com" endsAt="2024-04-04 16:00:00"></bid>
-    <bid :startingPrice="30000" domainName="auto" topLevel="ai" endsAt="2024-04-06 10:00:00"></bid>
-  </section>
+  <component :is="currentView" />
 </template>
 
 <style scoped></style>
