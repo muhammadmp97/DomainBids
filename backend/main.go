@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/muhammadmp97/DomainBids/app/controllers"
+	"github.com/muhammadmp97/DomainBids/app/middlewares"
 	"github.com/muhammadmp97/DomainBids/app/models"
 )
 
@@ -20,7 +21,11 @@ func main() {
 
 	r := gin.Default()
 
+	r.Use(middlewares.CORSMiddleware())
+
 	r.GET("/ping", controllers.Ping)
+
+	r.GET("/auctions", controllers.FindAuctions)
 
 	r.Run("127.0.0.1:" + os.Getenv("APP_PORT"))
 }
