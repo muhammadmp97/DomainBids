@@ -26,6 +26,7 @@ func main() {
 	r.GET("/ping", controllers.Ping)
 
 	r.GET("/auctions", controllers.FindAuctions)
+	r.GET("/auctions/:id", controllers.FindAuction)
 
 	r.Run("127.0.0.1:" + os.Getenv("APP_PORT"))
 }
