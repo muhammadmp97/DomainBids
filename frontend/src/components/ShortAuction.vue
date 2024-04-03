@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import { computed } from 'vue';
 
-const props = defineProps(['domainName', 'topLevel', 'startingPrice', 'endsAt'])
+const props = defineProps(['id', 'domainName', 'topLevel', 'startingPrice', 'endsAt'])
 
 const startingPrice = computed(() => {
   return new Intl.NumberFormat().format(props.startingPrice)
@@ -29,7 +29,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <a href="">
+  <a :href="'#/a/' + id">
     <div class="bg-gray-700 rounded shadow-md duration-300 hover:scale-105 hover:shadow-xl px-4 py-3">
       <div class="flex items-center justify-between">
         <div>

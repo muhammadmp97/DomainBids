@@ -16,6 +16,6 @@ onMounted(function () {
 
 <template>
   <section class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-y-7 gap-x-7 mt-10 mb-5 px-10 lg:px-32">
-    <auction v-for="auction of auctions" v-bind:key="auction.id" :startingPrice="auction.starting_price" :domainName="auction.sld" :topLevel="auction.tld" :endsAt="auction.ends_at"></auction>
+    <auction v-for="auction of auctions" v-bind:key="auction.id" :id="auction.id" :startingPrice="auction.starting_price" :domainName="auction.sld" :topLevel="auction.tld" :endsAt="auction.ends_at"></auction>
   </section>
 </template>

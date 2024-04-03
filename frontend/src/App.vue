@@ -5,8 +5,8 @@ import NotFound from './components/Views/NotFound.vue'
 import Auction from './components/Views/Auction.vue';
 
 const routes = {
-  '/': Home,
-  '/a/id': Auction
+  '^\/?$': Home,
+  '\/a\/[\\d]+': Auction
 }
 
 const currentPath = ref(window.location.hash)
@@ -16,7 +16,13 @@ window.addEventListener('hashchange', () => {
 })
 
 const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/'] || NotFound
+  for (let route in routes) {
+    if (new RegExp(route).test(currentPath.value.slice(1) || '/')) {
+      return routes[route]
+    }
+  }
+
+  return NotFound
 })
 </script>
 
