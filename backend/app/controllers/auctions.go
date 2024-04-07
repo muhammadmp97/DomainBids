@@ -21,7 +21,7 @@ func FindAuctions(c *gin.Context) {
 
 func FindAuction(c *gin.Context) {
 	var auction models.Auction
-	result := models.DB.First(&auction, c.Param("id"))
+	result := models.DB.Preload("Bids.User").First(&auction, c.Param("id"))
 
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		c.JSON(http.StatusNotFound, gin.H{

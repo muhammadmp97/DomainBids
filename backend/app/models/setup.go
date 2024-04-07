@@ -28,6 +28,7 @@ func ConnectDatabase() {
 
 	database.AutoMigrate(&User{})
 	database.AutoMigrate(&Auction{})
+	database.AutoMigrate(&Bid{})
 
 	DB = database
 }

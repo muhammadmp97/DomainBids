@@ -8,6 +8,8 @@ type Auction struct {
 	StartingPrice uint   `json:"starting_price"`
 	Description   string `json:"description"`
 	Status        string `json:"status"`
-	EndsAt        string `json:"ends_at"`
-	CreatedAt     string `json:"created_at"`
+	EndsAt        string `json:"ends_at" gorm:"type:timestamp"`
+	CreatedAt     string `json:"created_at" gorm:"type:timestamp"`
+
+	Bids []Bid `json:"bids" gorm:"foreignKey:AuctionID"`
 }

@@ -1,10 +1,27 @@
 <script setup>
 import { computed } from 'vue';
 
-const props = defineProps(['index', 'name', 'price', 'createdAt'])
+const props = defineProps(['bid', 'index'])
 
 const price = computed(() => {
-  return new Intl.NumberFormat().format(props.price)
+  return new Intl.NumberFormat().format(props.bid.price)
+})
+
+let time = computed(() => {
+  let time = new Date(props.bid.created_at)
+  let diff = Math.floor((new Date() - time) / 1000)
+
+  if (diff < 60) {
+    return `${diff}s`
+  }
+
+  if (diff < 3600) {
+    diff = Math.floor(diff / 60)
+    return `${diff}m`
+  }
+
+  diff = Math.floor(diff/3600)
+  return `${diff}h`
 })
 </script>
 
@@ -13,8 +30,8 @@ const price = computed(() => {
     <div class="select-none absolute font-black text-8xl -top-2 left-1 text-gray-600/30 z-0">{{ index }}</div>
     <div class="flex items-center justify-between">
       <div class="relative z-1 | text-white">
-        <div>{{ name }}</div>
-        <div class="text-sm text-white/50">5m ago</div>
+        <div>{{ bid.user.nickname }}</div>
+        <div class="text-sm text-white/50" :title="bid.created_at">{{ time }} ago</div>
       </div>
       <div class="text-white font-bold">${{ price }}</div>
     </div>
