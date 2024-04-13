@@ -7,3 +7,13 @@
 body {
   font-family: "Ubuntu", sans-serif;
 }
+
+@layer components {
+  .input {
+    @apply bg-gray-600 shadow appearance-none rounded w-full py-2 px-2 text-gray-200 leading-tight focus:outline-none;
+  }
+
+  .button {
+    @apply transition duration-300 bg-gray-600 hover:bg-white/25 text-gray-200 py-2 px-4 rounded active:bg-gray-600 focus:outline-none cursor-pointer disabled:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+}

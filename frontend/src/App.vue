@@ -3,10 +3,12 @@ import { ref, computed } from 'vue'
 import Home from './components/Views/Home.vue'
 import NotFound from './components/Views/NotFound.vue'
 import Auction from './components/Views/Auction.vue';
+import Login from './components/Views/Login.vue';
 
 const routes = {
   '^\/?$': Home,
-  '\/a\/[\\d]+': Auction
+  '\/a\/[\\d]+': Auction,
+  '^\/login$': Login
 }
 
 const currentPath = ref(window.location.hash)

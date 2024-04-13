@@ -1,0 +1,35 @@
+<script setup>
+import axios from 'axios'
+
+const username = defineModel('username', { default: '' })
+const password = defineModel('password', { default: '' })
+
+const login = async () => {
+  axios
+    .post(`http://127.0.0.1:8000/login`, {username: username.value, password: password.value})
+    .then(res => {
+      localStorage.setItem("db_token", res.data.data.token)
+      alert("Welcome here!")
+      location.href = '/'
+    })
+    .catch(err => {
+      if (err.response.status === 401) {
+        alert(err.response.data.error)
+      }
+    })
+}
+</script>
+
+<template>
+  <div class="container mx-auto px-10 pt-7">
+    <div class="bg-gray-700 rounded shadow-md px-4 py-3">
+      <div class="flex items-center justify-between">
+        <div class="w-80">
+          <input class="input" type="text" placeholder="username" v-model="username">
+          <input class="input mt-3" type="password" placeholder="password" v-model="password">
+          <input class="button mt-3" type="button" value="Login/Register" @click="login" :disabled="username.length === 0 || password.length === 0">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
