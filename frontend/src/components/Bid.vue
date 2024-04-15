@@ -20,8 +20,13 @@ let time = computed(() => {
     return `${diff}m`
   }
 
-  diff = Math.floor(diff/3600)
-  return `${diff}h`
+  if (diff < 3600 * 24) {
+    diff = Math.floor(diff / 3600)
+    return `${diff}h`
+  }
+
+  diff = Math.floor(diff /(3600 * 24))
+  return `${diff}d`
 })
 </script>
 
