@@ -8,6 +8,8 @@ Online auctions for domains
 
 ## TODO
 - Add login/register to the menu
+- Redirect to 404 if auction doesn't exist
+- Redirect to the homepage is user is logged-in
 - Add user profile
 - Add wallet
 - Submit a bid
