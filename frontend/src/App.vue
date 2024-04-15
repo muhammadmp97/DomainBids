@@ -34,7 +34,7 @@ const currentView = computed(() => {
   </div>
 
   <header class="bg-black/20 py-5">
-    <div class="container flex items-center justify-between mx-auto px-5">
+    <div class="container lg:lg-container flex items-center justify-between mx-auto">
       <a href="">
         <div class="logo select-none text-lg font-black text-white">Domain<span class="bg-white text-gray-800 rounded-sm">Bids</span></div>
       </a>

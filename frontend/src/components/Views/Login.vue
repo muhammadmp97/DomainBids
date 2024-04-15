@@ -21,7 +21,7 @@ const login = async () => {
 </script>
 
 <template>
-  <div class="container mx-auto px-10 pt-7">
+  <div class="container lg:lg-container mx-auto pt-7">
     <div class="bg-gray-700 rounded shadow-md px-4 py-3">
       <div class="flex items-center justify-between">
         <div class="w-80">

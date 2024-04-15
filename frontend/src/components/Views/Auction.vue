@@ -14,7 +14,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="container mx-auto px-5 pt-7" v-if="auction">
+  <div class="container lg:lg-container mx-auto pt-7" v-if="auction">
     <auction :auction="auction"></auction>
 
     <div id="bids"
