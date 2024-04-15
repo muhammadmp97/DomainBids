@@ -8,8 +8,16 @@ const auction = defineModel('auction', { default: {} })
 
 const id = window.location.hash.slice(4)
 onMounted(async () => {
-  const res = await axios.get(`http://127.0.0.1:8000/auctions/${id}`)
-  auction.value = res.data.data
+  axios
+    .get(`http://127.0.0.1:8000/auctions/${id}`)
+    .then(res => {
+      auction.value = res.data.data
+    })
+    .catch(err => {
+      if (err.response.status === 404) {
+        location.href = '/#/404'
+      }
+    })
 })
 </script>
 
