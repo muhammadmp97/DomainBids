@@ -25,7 +25,7 @@ let time = computed(() => {
     return `${diff}h`
   }
 
-  diff = Math.floor(diff /(3600 * 24))
+  diff = Math.floor(diff / (3600 * 24))
   return `${diff}d`
 })
 </script>
