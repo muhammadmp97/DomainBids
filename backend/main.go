@@ -25,7 +25,8 @@ func main() {
 
 	r.GET("/ping", controllers.Ping)
 
-	r.POST("/login", controllers.Login)
+	r.GET("/auth", controllers.CheckAuthentication)
+	r.POST("/auth", controllers.Login)
 
 	r.GET("/auctions", controllers.FindAuctions)
 	r.GET("/auctions/:id", controllers.FindAuction)

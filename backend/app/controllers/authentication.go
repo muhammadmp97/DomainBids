@@ -4,6 +4,7 @@ import (
 	"errors"
 	"math/rand"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -56,4 +57,23 @@ func Login(c *gin.Context) {
 	models.DB.Save(&user)
 
 	c.JSON(http.StatusCreated, gin.H{"data": gin.H{"token": token}})
+}
+
+func CheckAuthentication(c *gin.Context) {
+	token := strings.Split(c.GetHeader("Authorization"), " ")
+
+	// No token
+	if len(token) == 1 {
+		c.JSON(http.StatusUnauthorized, gin.H{"data": gin.H{"status": false}})
+		return
+	}
+
+	var userCount int64
+	models.DB.Model(&models.User{}).Where("token = ?", token[1]).Count(&userCount)
+	if userCount == 0 {
+		c.JSON(http.StatusUnauthorized, gin.H{"data": gin.H{"status": false}})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": gin.H{"status": true}})
 }

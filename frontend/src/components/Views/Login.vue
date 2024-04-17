@@ -1,12 +1,25 @@
 <script setup>
+import { onMounted } from 'vue';
 import axios from 'axios'
 
 const username = defineModel('username', { default: '' })
 const password = defineModel('password', { default: '' })
 
+onMounted(async () => {
+  if (localStorage.getItem('db_token')) {
+    axios.defaults.headers.common['Authorization'] = `bearer ${localStorage.getItem('db_token')}`
+  }
+
+  axios
+    .get(`http://127.0.0.1:8000/auth`)
+    .then(res => {
+      location.href = '/'
+    })
+})
+
 const login = async () => {
   axios
-    .post(`http://127.0.0.1:8000/login`, {username: username.value, password: password.value})
+    .post(`http://127.0.0.1:8000/auth`, {username: username.value, password: password.value})
     .then(res => {
       localStorage.setItem("db_token", res.data.data.token)
       alert("Welcome here!")
