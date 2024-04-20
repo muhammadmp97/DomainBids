@@ -4,11 +4,13 @@ import Home from './components/Views/Home.vue'
 import NotFound from './components/Views/NotFound.vue'
 import Auction from './components/Views/Auction.vue';
 import Login from './components/Views/Login.vue';
+import StartAuction from './components/Views/StartAuction.vue';
 
 const routes = {
   '^\/?$': Home,
   '\/a\/[\\d]+': Auction,
-  '^\/login$': Login
+  '^\/login$': Login,
+  '^\/start-auction$': StartAuction,
 }
 
 const currentPath = ref(window.location.hash)
@@ -40,8 +42,8 @@ const currentView = computed(() => {
       </a>
       <nav>
         <ul class="text-white">
-          <a href="#">
-            <li class="float-left mr-7 duration-300 hover:text-red-500">Submit a bid</li>
+          <a href="/#/start-auction">
+            <li class="float-left mr-7 duration-300 hover:text-red-500">Start an auction</li>
           </a>
           <a href="#">
             <li class="float-left mr-7 duration-300 hover:text-red-500">About</li>

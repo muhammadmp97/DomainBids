@@ -7,7 +7,7 @@ type Auction struct {
 	UserID        uint   `json:"user_id" gorm:"index"`
 	StartingPrice uint   `json:"starting_price"`
 	Description   string `json:"description"`
-	Status        string `json:"status"`
+	Status        string `json:"status" gorm:"type:char(2)"`
 	EndsAt        string `json:"ends_at" gorm:"type:timestamp"`
 	CreatedAt     string `json:"created_at" gorm:"type:timestamp"`
 
