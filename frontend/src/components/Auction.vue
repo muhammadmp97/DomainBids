@@ -7,6 +7,11 @@ const startingPrice = computed(() => {
   return new Intl.NumberFormat().format(props.auction.starting_price)
 })
 
+const description = computed(() => {
+  let description = String(props.auction.description)
+  return description.replace("\n", '<br>')
+})
+
 const days = defineModel('days', { default: 999 })
 const hours = defineModel('hours', { default: 0 })
 const minutes = defineModel('minutes', { default: 0 })
@@ -44,7 +49,7 @@ onMounted(async () => {
     </div>
 
     <div>
-      <p class="text-white font-light mt-2 mb-1">{{ auction.description }}</p>
+      <p class="text-white font-light mt-2 mb-1" v-html="description"></p>
     </div>
   </div>
 </template>
