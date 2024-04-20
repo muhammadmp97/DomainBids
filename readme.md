@@ -11,7 +11,7 @@ Online auctions for domains
 - Add user profile
 - Add wallet
 - Submit a bid
-- Start an auction
 - About page
 - Contact page
 - Improve the login page (UI)
+- Validate the auction (^$200 | valid domain | TXT record)
