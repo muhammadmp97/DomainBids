@@ -1,11 +1,15 @@
 <script setup>
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import axios from 'axios'
 
 const sld = defineModel('sld', { default: '' })
 const tld = defineModel('tld', { default: '' })
 const description = defineModel('description', { default: '' })
 const startingPrice = defineModel('startingPrice', { default: 200 })
+
+const key = computed(() => {
+  return localStorage.getItem('db_token').substring(0, 7)
+})
 
 onMounted(async () => {
   if (localStorage.getItem('db_token')) {
@@ -46,6 +50,9 @@ const confirm = async () => {
     })
     .catch(err => {
       // validation stuff
+      if (err.response.status === 403) {
+        alert(err.response.data.error)
+      }
     })
 }
 </script>
@@ -61,12 +68,16 @@ const confirm = async () => {
           <input class="input w-20 ml-2 mt-3 text-center" type="text" placeholder="com" v-model="tld">
         </div>
 
+        <div class="w-100 mt-1">
+          <p class="text-sm text-white/50">You should have this TXT record to be allowed to start an auction: <span class="bg-white/50 text-gray-800 rounded">{{ key }}</span>.</p>
+        </div>
+
         <div class="w-100 mt-3 relative">
           <span class="starting-price__dollar | text-white/50 select-none">$</span>
           <input class="starting-price__input | w-40 input" type="text" placeholder="200" v-model="startingPrice">
         </div>
 
-        <div class="w-100 mt-3">
+        <div class="w-100 mt-4">
           <textarea class="input w-100" rows="5" maxlength="1000" placeholder="Description here" v-model="description"></textarea>
         </div>
 

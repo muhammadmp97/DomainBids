@@ -2,7 +2,10 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
+	"net"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -50,6 +53,20 @@ func StartAuction(c *gin.Context) {
 	var auctionRequest AuctionRequest
 	if err := c.ShouldBind(&auctionRequest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "The request is invalid."})
+		return
+	}
+
+	records, _ := net.LookupTXT(fmt.Sprintf("%s.%s", auctionRequest.SLD, auctionRequest.TLD))
+	recordWasFound := false
+	key := string(strings.Split(c.GetHeader("Authorization"), " ")[1][0:7]) // First seven characters of the token
+	for _, record := range records {
+		if record == key {
+			recordWasFound = true
+		}
+	}
+
+	if recordWasFound == false {
+		c.JSON(http.StatusForbidden, gin.H{"error": "The TXT record was not found!"})
 		return
 	}
 
