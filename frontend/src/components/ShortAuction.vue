@@ -14,17 +14,19 @@ const minutes = defineModel('minutes', { default: 0 })
 const seconds = defineModel('seconds', { default: 0 })
 
 onMounted(() => {
+  var delay = 5
   let timer = setInterval(() => {
     let diff = (new Date(props.endsAt) - new Date()) / 1000
     days.value = Math.floor(diff / 86400)
     hours.value = Math.floor(diff / 3600 % 24).toString().padStart(2, '0')
     minutes.value = Math.floor(diff / 60 % 60).toString().padStart(2, '0')
     seconds.value = Math.floor(diff % 60).toString().padStart(2, '0')
+    delay = 1000
 
     if (diff < 0) {
       clearInterval(timer)
     }
-  }, 1000)
+  }, delay)
 })
 </script>
 
