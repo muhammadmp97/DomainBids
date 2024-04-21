@@ -70,6 +70,11 @@ func StartAuction(c *gin.Context) {
 		return
 	}
 
+	if auctionRequest.StartingPrice < 200 {
+		c.JSON(http.StatusForbidden, gin.H{"error": "Starting price can't be less than $200!"})
+		return
+	}
+
 	var user *models.User = utils.GetUserFromToken(c)
 
 	if user == nil {

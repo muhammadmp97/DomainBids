@@ -49,10 +49,7 @@ const confirm = async () => {
       location.href = `/#/a/${gameId}`
     })
     .catch(err => {
-      // validation stuff
-      if (err.response.status === 403) {
         alert(err.response.data.error)
-      }
     })
 }
 </script>
