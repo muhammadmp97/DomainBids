@@ -24,6 +24,7 @@ func FindAuctions(c *gin.Context) {
 	})
 }
 
+// GET /auctions/:id
 func FindAuction(c *gin.Context) {
 	var auction models.Auction
 	result := models.DB.Preload("Bids.User").First(&auction, c.Param("id"))
