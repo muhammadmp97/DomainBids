@@ -5,12 +5,14 @@ import NotFound from './components/Views/NotFound.vue'
 import Auction from './components/Views/Auction.vue';
 import Login from './components/Views/Login.vue';
 import StartAuction from './components/Views/StartAuction.vue';
+import Profile from './components/Views/Profile.vue';
 
 const routes = {
   '^\/?$': Home,
   '\/a\/[\\d]+': Auction,
   '^\/login$': Login,
   '^\/start-auction$': StartAuction,
+  '\/u\/[\\d]+': Profile,
 }
 
 const currentPath = ref(window.location.hash)

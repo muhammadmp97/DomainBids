@@ -28,6 +28,8 @@ func main() {
 	r.GET("/auth", controllers.CheckAuthentication)
 	r.POST("/auth", controllers.Login)
 
+	r.GET("/users/:id", controllers.FindUser)
+
 	r.GET("/auctions", controllers.FindAuctions)
 	r.GET("/auctions/:id", controllers.FindAuction)
 	r.POST("/auctions", controllers.StartAuction)
