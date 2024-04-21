@@ -19,9 +19,7 @@ func FindAuctions(c *gin.Context) {
 	var auctions []models.Auction
 	models.DB.Find(&auctions)
 
-	c.JSON(http.StatusOK, gin.H{
-		"data": auctions,
-	})
+	c.JSON(http.StatusOK, gin.H{"data": auctions})
 }
 
 // GET /auctions/:id
@@ -30,16 +28,11 @@ func FindAuction(c *gin.Context) {
 	result := models.DB.Preload("Bids.User").First(&auction, c.Param("id"))
 
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error": "Not found!",
-		})
-
+		c.JSON(http.StatusNotFound, gin.H{"error": "Not found!"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"data": auction,
-	})
+	c.JSON(http.StatusOK, gin.H{"data": auction})
 }
 
 type AuctionRequest struct {
@@ -87,7 +80,5 @@ func StartAuction(c *gin.Context) {
 	newAuction := models.Auction{SLD: auctionRequest.SLD, TLD: auctionRequest.TLD, Description: auctionRequest.Description, StartingPrice: auctionRequest.StartingPrice, UserID: user.ID, Status: "cr", EndsAt: endsAt.Format(time.RFC3339), CreatedAt: time.Now().Format(time.RFC3339)}
 	models.DB.Create(&newAuction)
 
-	c.JSON(http.StatusCreated, gin.H{
-		"data": newAuction,
-	})
+	c.JSON(http.StatusCreated, gin.H{"data": newAuction})
 }
