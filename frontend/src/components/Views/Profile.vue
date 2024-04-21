@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted } from 'vue';
 import axios from 'axios'
+import { timeForHuman } from '../../helpers/time'
 
 const user = defineModel('user', { default: {} })
 
@@ -17,6 +18,11 @@ onMounted(async () => {
       }
     })
 })
+
+let registrationDate = computed(() => {
+  let time = new Date(user.value.created_at)
+  return timeForHuman(time)
+})
 </script>
 
 <template>
@@ -27,7 +33,7 @@ onMounted(async () => {
         <p class="text-sm text-white/75">{{ user.bio }}</p>
       </div>
 
-      <p class="text-xs text-white"><strong>Registered at: </strong> {{ user.created_at }}</p>
+      <p class="text-xs text-white">Registered {{ registrationDate }} ago</p>
     </div>
   </div>
 </template>

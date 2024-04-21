@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import { timeForHuman } from '../helpers/time.js'
 
 const props = defineProps(['bid', 'index'])
 
@@ -9,24 +10,7 @@ const price = computed(() => {
 
 let time = computed(() => {
   let time = new Date(props.bid.created_at)
-  let diff = Math.floor((new Date() - time) / 1000)
-
-  if (diff < 60) {
-    return `${diff}s`
-  }
-
-  if (diff < 3600) {
-    diff = Math.floor(diff / 60)
-    return `${diff}m`
-  }
-
-  if (diff < 3600 * 24) {
-    diff = Math.floor(diff / 3600)
-    return `${diff}h`
-  }
-
-  diff = Math.floor(diff / (3600 * 24))
-  return `${diff}d`
+  return timeForHuman(time)
 })
 </script>
 
