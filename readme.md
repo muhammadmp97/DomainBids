@@ -2,7 +2,7 @@
 Online auctions for domains  
 
 ## Technologies  
-- Go (gin/gorm)
+- Go (Gin/Gorm)
 - MySQL
 - Vue.js
 
@@ -14,4 +14,3 @@ Online auctions for domains
 - Improve the login page (UI)
 - Add websocket for updating the visitors
 - Check if auction is not open
-- Add animation to new bids
