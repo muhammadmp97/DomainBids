@@ -35,5 +35,7 @@ func main() {
 	r.POST("/auctions", controllers.StartAuction)
 	r.POST("/auctions/:id/bids", controllers.PlaceBid)
 
+	r.GET("estimate-price/:domain", controllers.EstimatePrice)
+
 	r.Run("127.0.0.1:" + os.Getenv("APP_PORT"))
 }

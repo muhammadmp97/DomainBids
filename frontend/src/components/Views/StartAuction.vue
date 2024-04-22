@@ -5,7 +5,9 @@ import axios from 'axios'
 const sld = defineModel('sld', { default: '' })
 const tld = defineModel('tld', { default: '' })
 const description = defineModel('description', { default: '' })
-const startingPrice = defineModel('startingPrice', { default: 200 })
+const startingPrice = defineModel('startingPrice', { default: '' })
+
+const estimatedPrice =  defineModel('estimatedPrice', { default: null })
 
 const key = computed(() => {
   return localStorage.getItem('db_token').substring(0, 7)
@@ -41,6 +43,21 @@ const validateForm = () => {
   return true
 }
 
+const estimatePrice = () => {
+  if (!sld.value || !tld.value) {
+    return
+  }
+
+  axios
+    .get(`http://127.0.0.1:8000/estimate-price/${sld.value}.${tld.value}`)
+    .then(res => {
+      estimatedPrice.value = res.data.data.price
+      if (estimatedPrice.value < 200) {
+        estimatedPrice.value = 200
+      }
+    })
+}
+
 const confirm = async () => {
   axios
     .post(`http://127.0.0.1:8000/auctions`, {sld: sld.value, tld: tld.value, starting_price: +startingPrice.value, description: description.value})
@@ -60,9 +77,9 @@ const confirm = async () => {
       <h2 class="font-bold text-lg text-white mb-1">Start an auction</h2>
       <div class="">
         <div class="w-100">
-          <input class="input w-60" type="text" placeholder="example" v-model="sld">
+          <input class="input w-60" type="text" placeholder="example" v-model="sld" @blur="estimatePrice()">
           <span class="text-white font-bold ml-2">.</span>
-          <input class="input w-20 ml-2 mt-3 text-center" type="text" placeholder="com" v-model="tld">
+          <input class="input w-20 ml-2 mt-3 text-center" type="text" placeholder="com" v-model="tld" @blur="estimatePrice()">
         </div>
 
         <div class="w-100 mt-1">
@@ -71,7 +88,7 @@ const confirm = async () => {
 
         <div class="w-100 mt-3 relative">
           <span class="starting-price__dollar | text-white/50 select-none">$</span>
-          <input class="starting-price__input | w-40 input" type="text" placeholder="200" v-model="startingPrice">
+          <input class="starting-price__input | w-40 input" type="text" :placeholder="estimatedPrice || 200" v-model="startingPrice" :disabled="estimatedPrice === null">
         </div>
 
         <div class="w-100 mt-4">
