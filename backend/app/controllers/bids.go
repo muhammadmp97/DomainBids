@@ -12,7 +12,7 @@ import (
 )
 
 type BidRequest struct {
-	Price uint `json:"price"`
+	Price uint `json:"price" binding:"required,numeric"`
 }
 
 // POST /auctions/:id/bids
