@@ -50,6 +50,12 @@ func StartAuction(c *gin.Context) {
 		return
 	}
 
+	var user *models.User = utils.GetUserFromToken(c)
+	if user == nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+		return
+	}
+
 	records, _ := net.LookupTXT(fmt.Sprintf("%s.%s", auctionRequest.SLD, auctionRequest.TLD))
 	recordWasFound := false
 	key := string(strings.Split(c.GetHeader("Authorization"), " ")[1][0:7]) // First seven characters of the token
@@ -66,13 +72,6 @@ func StartAuction(c *gin.Context) {
 
 	if auctionRequest.StartingPrice < 200 {
 		c.JSON(http.StatusForbidden, gin.H{"error": "Starting price can't be less than $200!"})
-		return
-	}
-
-	var user *models.User = utils.GetUserFromToken(c)
-
-	if user == nil {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
 		return
 	}
 
