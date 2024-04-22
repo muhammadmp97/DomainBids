@@ -24,11 +24,12 @@ const loadAuction = () => {
     })
 }
 
+const authToken = localStorage.getItem('db_token')
 const placeBid = () => {
   const price = prompt("Enter the new price:")
 
-  if (localStorage.getItem('db_token')) {
-    axios.defaults.headers.common['Authorization'] = `bearer ${localStorage.getItem('db_token')}`
+  if (authToken) {
+    axios.defaults.headers.common['Authorization'] = `bearer ${authToken}`
   }
 
   axios
@@ -51,6 +52,7 @@ const placeBid = () => {
       <bid v-for="(bid, index) of auction.bids" :key="bid.id" :index="index + 1" :bid="bid"></bid>
 
       <div @click="placeBid()"
+        v-show="authToken"
         class="relative overflow-hidden flex justify-center items-center bg-gray-600 rounded shadow-md | transition duration-300 hover:shadow-lg hover:bg-white/25 hover:scale-105 active:bg-gray-700 cursor-pointer"
         style="min-height:60px;">
         <span class="text-white font-bold tracking-wide">Place a bid!</span>
