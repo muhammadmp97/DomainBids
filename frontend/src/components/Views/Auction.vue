@@ -15,6 +15,13 @@ const loadAuction = () => {
   axios
     .get(`http://127.0.0.1:8000/auctions/${id}`)
     .then(res => {
+      if (auction.value.id != undefined) {
+        res.data.data.bids = res.data.data.bids.map(bid => {
+          bid.is_new = !auction.value.bids.some((oldBid) => bid.id == oldBid.id)
+          return bid
+        })
+      }
+
       auction.value = res.data.data
     })
     .catch(err => {
