@@ -28,6 +28,7 @@ func randStringRunes(n int) string {
 	return string(b)
 }
 
+// POST /auth
 func Login(c *gin.Context) {
 	var userCredentials UserCredentials
 	if err := c.ShouldBind(&userCredentials); err != nil {
@@ -59,6 +60,7 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"data": gin.H{"token": token}})
 }
 
+// GET /auth
 func CheckAuthentication(c *gin.Context) {
 	token := strings.Split(c.GetHeader("Authorization"), " ")
 
