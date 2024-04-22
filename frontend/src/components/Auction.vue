@@ -20,7 +20,7 @@ const seconds = defineModel('seconds', { default: 0 })
 onMounted(async () => {
   var delay = 5
   let timer = setInterval(() => {
-    let diff = (new Date(props.auction.ends_at) - new Date()) / 1000
+    let diff = (new Date(`${props.auction.ends_at} UTC`) - new Date()) / 1000
     days.value = Math.floor(diff / 86400)
     hours.value = Math.floor(diff / 3600 % 24).toString().padStart(2, '0')
     minutes.value = Math.floor(diff / 60 % 60).toString().padStart(2, '0')

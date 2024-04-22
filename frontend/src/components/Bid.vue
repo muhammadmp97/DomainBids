@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { timeForHuman } from '../helpers/time.js'
+import { timeForHuman as timeForHumanHelper } from '../helpers/time.js'
 
 const props = defineProps(['bid', 'index'])
 
@@ -8,9 +8,13 @@ const price = computed(() => {
   return new Intl.NumberFormat().format(props.bid.price)
 })
 
-let time = computed(() => {
-  let time = new Date(props.bid.created_at)
-  return timeForHuman(time)
+const time = computed(() => {
+  return new Date(`${props.bid.created_at} UTC`)
+})
+
+const timeForHuman = computed(() => {
+  let time = new Date(`${props.bid.created_at} UTC`)
+  return timeForHumanHelper(time)
 })
 </script>
 
@@ -22,7 +26,7 @@ let time = computed(() => {
         <a :href="'/#/u/' + bid.user.id">
           <div>{{ bid.user.nickname }}</div>
         </a>
-        <div class="text-sm text-white/50" :title="bid.created_at">{{ time }} ago</div>
+        <div class="text-sm text-white/50" :title="time">{{ timeForHuman }} ago</div>
       </div>
       <div class="text-white font-bold">${{ price }}</div>
     </div>
