@@ -33,6 +33,7 @@ func main() {
 	r.GET("/auctions", controllers.FindAuctions)
 	r.GET("/auctions/:id", controllers.FindAuction)
 	r.POST("/auctions", controllers.StartAuction)
+	r.POST("/auctions/:id/bids", controllers.PlaceBid)
 
 	r.Run("127.0.0.1:" + os.Getenv("APP_PORT"))
 }

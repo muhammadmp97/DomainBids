@@ -9,7 +9,10 @@ Online auctions for domains
 ## TODO
 - Add login/register to the menu
 - Add wallet
-- Submit a bid
 - About page
 - Contact page
 - Improve the login page (UI)
+- Fix dates (should be parsed from UTC)
+- Add websocket for updating the visitors
+- Check if auction is not open
+- Add animation to new bids
