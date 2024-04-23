@@ -7,7 +7,6 @@ Online auctions for domains
 - Vue.js
 
 ## TODO
-- Add login/register to the menu
 - Add wallet
 - About page
 - Contact page

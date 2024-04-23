@@ -48,10 +48,10 @@ const currentView = computed(() => {
             <li class="float-left mr-7 duration-300 hover:text-red-500">Start an auction</li>
           </a>
           <a href="#">
-            <li class="float-left mr-7 duration-300 hover:text-red-500">About</li>
+            <li class="float-left mr-7 duration-300 hover:text-red-500">Contact</li>
           </a>
-          <a href="#">
-            <li class="float-left duration-300 hover:text-red-500">Contact</li>
+          <a href="/#/login">
+            <li class="float-left duration-300 hover:text-red-500">Register / Login</li>
           </a>
         </ul>
       </nav>
