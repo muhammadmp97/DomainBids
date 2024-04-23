@@ -54,9 +54,11 @@ func runTicker() {
 				domainsPrices[valuation.Domain] = valuation.Price
 			}
 
-			clear(domainsQueue)
+			for i := 1; i <= len(domainsPrices); i++ {
+				channel <- true
+			}
 
-			channel <- true
+			clear(domainsQueue)
 		}
 	}
 }
