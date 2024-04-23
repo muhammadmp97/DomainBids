@@ -19,7 +19,7 @@ onMounted(async () => {
     })
 })
 
-let registrationDate = computed(() => {
+let registrationDateForHuman = computed(() => {
   let time = new Date(user.value.created_at)
   return timeForHuman(time)
 })
@@ -33,7 +33,7 @@ let registrationDate = computed(() => {
         <p class="text-sm text-white/75">{{ user.bio }}</p>
       </div>
 
-      <p class="text-xs text-white">Registered {{ registrationDate }} ago</p>
+      <p class="text-xs text-white">Registered {{ registrationDateForHuman }}</p>
     </div>
   </div>
 </template>

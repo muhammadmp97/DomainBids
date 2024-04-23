@@ -1,22 +1,26 @@
 const timeForHuman = function (time) {
   let diff = Math.floor((new Date() - time) / 1000)
 
+  if (diff < 5) {
+    return `now`
+  }
+
   if (diff < 60) {
-    return `${diff}s`
+    return `${diff}s ago`
   }
 
   if (diff < 3600) {
     diff = Math.floor(diff / 60)
-    return `${diff}m`
+    return `${diff}m ago`
   }
 
   if (diff < 3600 * 24) {
     diff = Math.floor(diff / 3600)
-    return `${diff}h`
+    return `${diff}h ago`
   }
 
   diff = Math.floor(diff / (3600 * 24))
-  return `${diff}d`
+  return `${diff}d ago`
 }
 
 export { timeForHuman }

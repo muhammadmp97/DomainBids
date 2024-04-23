@@ -26,7 +26,7 @@ const timeForHuman = computed(() => {
         <a :href="'/#/u/' + bid.user.id">
           <div>{{ bid.user.nickname }}</div>
         </a>
-        <div class="text-sm text-white/50" :title="time">{{ timeForHuman }} ago</div>
+        <div class="text-sm text-white/50" :title="time">{{ timeForHuman }}</div>
       </div>
       <div class="text-white font-bold">${{ price }}</div>
     </div>
