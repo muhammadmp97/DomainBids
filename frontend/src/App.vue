@@ -59,13 +59,13 @@ onMounted(async () => {
       <nav>
         <ul class="text-white">
           <a href="/#/start-auction">
-            <li class="float-left mr-7 duration-300 hover:text-red-500">Start an auction</li>
+            <li class="float-left duration-300 hover:text-red-500">Start an auction</li>
           </a>
           <a href="#">
-            <li class="float-left mr-7 duration-300 hover:text-red-500">Contact</li>
+            <li class="float-left ml-7 duration-300 hover:text-red-500">Contact</li>
           </a>
-          <a href="/#/login">
-            <li class="float-left duration-300 hover:text-red-500">Register / Login</li>
+          <a href="/#/login" v-if="!Store.authenticated">
+            <li class="float-left ml-7 duration-300 hover:text-red-500">Register / Login</li>
           </a>
         </ul>
       </nav>
