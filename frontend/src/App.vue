@@ -1,11 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { Store } from './store.js'
 import Home from './components/Views/Home.vue'
 import NotFound from './components/Views/NotFound.vue'
 import Auction from './components/Views/Auction.vue';
 import Login from './components/Views/Login.vue';
 import StartAuction from './components/Views/StartAuction.vue';
 import Profile from './components/Views/Profile.vue';
+import axios from 'axios';
 
 const routes = {
   '^\/?$': Home,
@@ -29,6 +31,18 @@ const currentView = computed(() => {
   }
 
   return NotFound
+})
+
+onMounted(async () => {
+  if (localStorage.getItem('db_token')) {
+    axios.defaults.headers.common['Authorization'] = `bearer ${localStorage.getItem('db_token')}`
+  }
+
+  axios
+    .get(`http://127.0.0.1:8000/auth`)
+    .then(res => {
+      Store.authenticated = true
+    })
 })
 </script>
 

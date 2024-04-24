@@ -1,20 +1,15 @@
 <script setup>
 import { onMounted } from 'vue';
 import axios from 'axios'
+import { Store } from '../../store'
 
 const username = defineModel('username', { default: '' })
 const password = defineModel('password', { default: '' })
 
 onMounted(async () => {
-  if (localStorage.getItem('db_token')) {
-    axios.defaults.headers.common['Authorization'] = `bearer ${localStorage.getItem('db_token')}`
+  if (Store.authenticated) {
+    location.href = '/'
   }
-
-  axios
-    .get(`http://127.0.0.1:8000/auth`)
-    .then(res => {
-      location.href = '/'
-    })
 })
 
 const login = async () => {

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted } from 'vue';
 import axios from 'axios'
+import { Store } from '../../store.js';
 
 const sld = defineModel('sld', { default: '' })
 const tld = defineModel('tld', { default: '' })
@@ -14,17 +15,9 @@ const key = computed(() => {
 })
 
 onMounted(async () => {
-  if (localStorage.getItem('db_token')) {
-    axios.defaults.headers.common['Authorization'] = `bearer ${localStorage.getItem('db_token')}`
+  if (!Store.authenticated) {
+    location.href = '/#/login'
   }
-
-  axios
-    .get(`http://127.0.0.1:8000/auth`)
-    .catch(err => {
-      if (err.response.status === 401) {
-        location.href = '/#/login'
-      }
-    })
 })
 
 const validateForm = () => {
