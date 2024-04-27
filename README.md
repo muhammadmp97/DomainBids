@@ -12,4 +12,3 @@ Online auctions for domains
 - Contact page
 - Improve the login page (UI)
 - Add websocket for updating the visitors
-- Check if auction is not open
