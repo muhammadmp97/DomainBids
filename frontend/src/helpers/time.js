@@ -23,4 +23,10 @@ const timeForHuman = function (time) {
   return `${diff}d ago`
 }
 
-export { timeForHuman }
+const isFuture = function (date) {
+  const now = new Date()
+
+  return date - now > 0
+}
+
+export { timeForHuman, isFuture }
