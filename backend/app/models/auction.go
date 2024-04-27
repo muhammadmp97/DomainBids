@@ -2,8 +2,8 @@ package models
 
 type Auction struct {
 	ID            uint   `json:"id" gorm:"primary_key"`
-	SLD           string `json:"sld"`
-	TLD           string `json:"tld"`
+	SLD           string `json:"sld" gorm:"type:varchar(255)"`
+	TLD           string `json:"tld" gorm:"type:varchar(255)"`
 	UserID        uint   `json:"user_id" gorm:"index"`
 	StartingPrice uint   `json:"starting_price"`
 	Description   string `json:"description"`
