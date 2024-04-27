@@ -1,8 +1,10 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { timeForHuman as timeForHumanHelper } from '../helpers/time.js'
 
 const props = defineProps(['bid', 'index'])
+
+const timeForHuman = defineModel('timeForHuman')
 
 const price = computed(() => {
   return new Intl.NumberFormat().format(props.bid.price)
@@ -12,9 +14,17 @@ const time = computed(() => {
   return new Date(`${props.bid.created_at} UTC`)
 })
 
-const timeForHuman = computed(() => {
+const updateTime = () => {
   let time = new Date(`${props.bid.created_at} UTC`)
-  return timeForHumanHelper(time)
+  timeForHuman.value = timeForHumanHelper(time)
+}
+
+onMounted(() => {
+  updateTime()
+
+  setInterval(() => {
+    updateTime()
+  }, 10000)
 })
 </script>
 
