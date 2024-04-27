@@ -36,6 +36,12 @@ func PlaceBid(c *gin.Context) {
 		return
 	}
 
+	endsAt, _ := time.Parse("2006-01-02 15:04:05", auction.EndsAt)
+	if time.Now().After(endsAt) {
+		c.JSON(http.StatusForbidden, gin.H{"error": "Auction is not open!"})
+		return
+	}
+
 	if (len(auction.Bids) > 0 && bidRequest.Price <= auction.Bids[len(auction.Bids)-1].Price) || bidRequest.Price <= auction.StartingPrice {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "You should enter a higher number!"})
 		return
