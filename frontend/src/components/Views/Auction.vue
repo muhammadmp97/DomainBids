@@ -35,6 +35,10 @@ const authToken = localStorage.getItem('db_token')
 const placeBid = () => {
   const price = prompt("Enter the new price:")
 
+  if (!price) {
+    return
+  }
+
   if (authToken) {
     axios.defaults.headers.common['Authorization'] = `bearer ${authToken}`
   }
