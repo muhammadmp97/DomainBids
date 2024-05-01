@@ -74,5 +74,7 @@ const isOpen = () => {
         <span class="text-white font-bold tracking-wide">Place a bid!</span>
       </div>
     </div>
+
+    <p v-show="authToken && isOpen()" class="text-gray-500 mt-5">By participating in an auction, your email will be shared with the starter.</p>
   </div>
 </template>
