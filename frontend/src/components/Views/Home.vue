@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import Auction from '../ShortAuction.vue'
 import axios from 'axios'
 
-const auctions = defineModel('auctions', { default: [] })
+const auctions = ref()
 
 onMounted(function () {
   axios

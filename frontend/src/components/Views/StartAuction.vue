@@ -1,14 +1,16 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import axios from 'axios'
 import { Store } from '../../store.js';
 
-const sld = defineModel('sld', { default: '' })
-const tld = defineModel('tld', { default: '' })
-const description = defineModel('description', { default: '' })
-const startingPrice = defineModel('startingPrice', { default: '' })
+const form = ref({
+  sld: '',
+  tld: '',
+  description: '',
+  starting_price: null,
+})
 
-const estimatedPrice =  defineModel('estimatedPrice', { default: null })
+const estimatedPrice = ref()
 
 const key = computed(() => {
   return localStorage.getItem('db_token').substring(0, 7)
@@ -21,15 +23,15 @@ onMounted(async () => {
 })
 
 const validateForm = () => {
-  if (sld.value.length < 3) {
+  if (form.value.sld.length < 3) {
     return false
   }
 
-  if (tld.value.length < 2) {
+  if (form.value.tld.length < 2) {
     return false
   }
 
-  if (startingPrice.value < 200) {
+  if (form.value.starting_price < 200) {
     return false
   }
 
@@ -37,12 +39,12 @@ const validateForm = () => {
 }
 
 const estimatePrice = () => {
-  if (!sld.value || !tld.value) {
+  if (!form.value.sld || !form.value.tld) {
     return
   }
 
   axios
-    .get(`http://127.0.0.1:8000/estimate-price/${sld.value}.${tld.value}`)
+    .get(`http://127.0.0.1:8000/estimate-price/${form.value.sld}.${form.value.tld}`)
     .then(res => {
       estimatedPrice.value = res.data.data.price
       if (estimatedPrice.value < 200) {
@@ -52,8 +54,9 @@ const estimatePrice = () => {
 }
 
 const confirm = async () => {
+  form.value.starting_price = +form.value.starting_price
   axios
-    .post(`http://127.0.0.1:8000/auctions`, {sld: sld.value, tld: tld.value, starting_price: +startingPrice.value, description: description.value})
+    .post(`http://127.0.0.1:8000/auctions`, form.value)
     .then(res => {
       let gameId = res.data.data.id
       location.href = `/#/a/${gameId}`
@@ -70,9 +73,9 @@ const confirm = async () => {
       <h2 class="font-bold text-lg text-white mb-1">Start an auction</h2>
       <div class="">
         <div class="w-100">
-          <input class="input w-60" type="text" placeholder="example" v-model="sld" @blur="estimatePrice()">
+          <input class="input w-60" type="text" placeholder="example" v-model="form.sld" @blur="estimatePrice()">
           <span class="text-white font-bold ml-2">.</span>
-          <input class="input w-20 ml-2 mt-3 text-center" type="text" placeholder="com" v-model="tld" @blur="estimatePrice()">
+          <input class="input w-20 ml-2 mt-3 text-center" type="text" placeholder="com" v-model="form.tld" @blur="estimatePrice()">
         </div>
 
         <div class="w-100 mt-1">
@@ -81,11 +84,11 @@ const confirm = async () => {
 
         <div class="w-100 mt-3 relative">
           <span class="starting-price__dollar | text-white/50 select-none">$</span>
-          <input class="starting-price__input | w-40 input" type="text" :placeholder="estimatedPrice || 200" v-model="startingPrice" :disabled="estimatedPrice === null">
+          <input class="starting-price__input | w-40 input" type="text" :placeholder="estimatedPrice || 200" v-model="form.starting_price" :disabled="estimatedPrice === null">
         </div>
 
         <div class="w-100 mt-4">
-          <textarea class="input w-100" rows="5" maxlength="1000" placeholder="Description here" v-model="description"></textarea>
+          <textarea class="input w-100" rows="5" maxlength="1000" placeholder="Description here" v-model="form.description"></textarea>
         </div>
 
         <div class="w-100 mt-5">

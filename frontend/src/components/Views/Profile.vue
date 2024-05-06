@@ -1,9 +1,9 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import axios from 'axios'
 import { timeForHuman } from '../../helpers/time'
 
-const user = defineModel('user', { default: {} })
+const user = ref()
 
 const id = window.location.hash.slice(4)
 onMounted(async () => {

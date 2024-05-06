@@ -1,11 +1,11 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import Auction from '../Auction.vue'
 import Bid from '../Bid.vue'
 import { isFuture } from '../../helpers/time.js'
 
-const auction = defineModel('auction', { default: {} })
+const auction = ref()
 
 const id = window.location.hash.slice(4)
 onMounted(async () => {
@@ -16,7 +16,7 @@ const loadAuction = () => {
   axios
     .get(`http://127.0.0.1:8000/auctions/${id}`)
     .then(res => {
-      if (auction.value.id != undefined) {
+      if (auction?.value?.id != undefined) {
         res.data.data.bids = res.data.data.bids.map(bid => {
           bid.is_new = !auction.value.bids.some((oldBid) => bid.id == oldBid.id)
           return bid

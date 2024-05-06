@@ -1,10 +1,10 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { timeForHuman as timeForHumanHelper } from '../helpers/time.js'
 
 const props = defineProps(['bid', 'index'])
 
-const timeForHuman = defineModel('timeForHuman')
+const timeForHuman = ref()
 
 const price = computed(() => {
   return new Intl.NumberFormat().format(props.bid.price)

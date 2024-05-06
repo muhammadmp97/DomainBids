@@ -1,10 +1,12 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import axios from 'axios'
 import { Store } from '../../store'
 
-const username = defineModel('username', { default: '' })
-const password = defineModel('password', { default: '' })
+const form = ref({
+  username: '',
+  password: '',
+})
 
 onMounted(async () => {
   if (Store.authenticated) {
@@ -14,7 +16,7 @@ onMounted(async () => {
 
 const login = async () => {
   axios
-    .post(`http://127.0.0.1:8000/auth`, {username: username.value, password: password.value})
+    .post(`http://127.0.0.1:8000/auth`, form.value)
     .then(res => {
       localStorage.setItem("db_token", res.data.data.token)
       alert("Welcome here!")
@@ -33,9 +35,9 @@ const login = async () => {
     <div class="bg-gray-700 rounded shadow-md px-4 py-3">
       <div class="flex items-center justify-between">
         <div class="w-80">
-          <input class="input" type="text" placeholder="username" v-model="username">
-          <input class="input mt-3" type="password" placeholder="password" v-model="password">
-          <input class="button mt-3" type="button" value="Login/Register" @click="login" :disabled="username.length === 0 || password.length === 0">
+          <input class="input" type="text" placeholder="username" v-model="form.username">
+          <input class="input mt-3" type="password" placeholder="password" v-model="form.password">
+          <input class="button mt-3" type="button" value="Login/Register" @click="login" :disabled="form.username.length === 0 || form.password.length === 0">
         </div>
       </div>
     </div>
