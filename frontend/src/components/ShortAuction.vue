@@ -35,7 +35,7 @@ onMounted(() => {
     <div class="bg-gray-700 rounded shadow-md duration-300 hover:scale-105 hover:shadow-xl px-4 py-3">
       <div class="flex items-center justify-between">
         <div>
-          <div :class="(seconds < 0 ? 'line-through ' : '') + 'text-white font-bold tracking-wide'">
+          <div :class="{ 'line-through': seconds < 0 }" class="text-white font-bold tracking-wide'">
             {{ domainName }}
             <span class="text-red-500 tracking-widest pl-0.5">.{{ topLevel }}</span>
           </div>

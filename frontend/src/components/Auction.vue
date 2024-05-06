@@ -38,7 +38,7 @@ onMounted(async () => {
   <div class="bg-gray-700 rounded shadow-md px-4 py-3">
     <div class="flex items-center justify-between border-b border-gray-600 pb-2">
       <div>
-        <div :class="(seconds < 0 ? 'line-through ' : '') + 'text-white font-bold tracking-wide text-lg'">
+        <div :class="{ 'line-through': seconds < 0 }" class="text-white font-bold tracking-wide text-lg">
           {{ auction.sld }}
           <span class="text-red-500 tracking-widest pl-0.5">.{{ auction.tld }}</span>
         </div>

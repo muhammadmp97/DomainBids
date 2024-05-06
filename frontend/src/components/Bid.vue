@@ -29,7 +29,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :id="bid.is_new ? 'new-bid' : ''" class="bg-gray-700 rounded shadow-md px-4 py-3 relative overflow-hidden">
+  <div :class="{ 'new-bid': bid.is_new }" class="bg-gray-700 rounded shadow-md px-4 py-3 relative overflow-hidden">
     <div class="select-none absolute font-black text-8xl -top-2 left-1 text-gray-600/30 z-0">{{ index }}</div>
     <div class="flex items-center justify-between">
       <div class="relative z-1 | text-white">
@@ -44,7 +44,7 @@ onMounted(() => {
 </template>
 
 <style>
-#new-bid {
+.new-bid {
   border: 2px solid rgba(160, 0, 0, 0);
   animation: pulse 3s ease-in-out;
 }
