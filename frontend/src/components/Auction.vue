@@ -41,9 +41,9 @@ onMounted(async () => {
         </div>
         <div class="text-gray-400 text-sm">From ${{ startingPrice }}</div>
       </div>
-      <div class="bg-red-800/70 px-2 py-2 rounded select-none" v-show="timer.days != 999">
+      <div class="bg-red-800/70 px-2 py-2 rounded select-none">
         <div class="text-red-300 text-xs" v-if="timer.seconds >= 0">{{ timer.days }}d {{ timer.hours }}:{{ timer.minutes }}:{{ timer.seconds }}</div>
-        <div class="text-red-300 text-xs uppercase tracking-widest" v-if="timer.seconds < 0">closed</div>
+        <div class="text-red-300 text-xs uppercase tracking-widest" v-else>closed</div>
       </div>
     </div>
 
