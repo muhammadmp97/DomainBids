@@ -12,3 +12,6 @@ Online auctions for domains
 - Contact page
 - Improve the login page (UI)
 - Add websocket for updating the visitors
+- Statistics
+- Show bid emails to the starter
+- Fix bug: refresh on start auction, redirects to the login page

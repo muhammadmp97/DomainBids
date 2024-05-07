@@ -17,20 +17,29 @@ const routes = [
   { path: '\/u\/[\\d]+', view: Profile, requiresAuth: false },
 ]
 
+const getRoute = (path) => {
+  for (let route of routes) {
+    if (new RegExp(route.path).test(path.slice(1) || '/')) {
+      return route
+    }
+  }
+
+  return null
+}
+
 const currentPath = ref(window.location.hash)
 
 window.addEventListener('hashchange', () => {
   currentPath.value = window.location.hash
+  
+  if (!Store.authenticated && getRoute(currentPath.value).requiresAuth) {
+    location.href = '/#/login'
+  }
 })
 
 const currentView = computed(() => {
-  for (let route of routes) {
-    if (new RegExp(route.path).test(currentPath.value.slice(1) || '/')) {
-      return route.view
-    }
-  }
-
-  return NotFound
+  const route = getRoute(currentPath.value)
+  return route ? route.view : NotFound
 })
 
 onMounted(async () => {
@@ -44,7 +53,7 @@ onMounted(async () => {
       Store.authenticated = true
     })
     .catch(err => {
-      if (err.response.status === 401) {
+      if (err.response.status === 401 && getRoute(currentPath.value).requiresAuth) {
         location.href = '/#/login'
       }
     })
