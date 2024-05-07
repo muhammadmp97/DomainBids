@@ -35,8 +35,8 @@ const login = async () => {
     <div class="bg-gray-700 rounded shadow-md px-4 py-3">
       <div class="flex items-center justify-between">
         <div class="w-80">
-          <input class="input" type="text" placeholder="username" v-model="form.username">
-          <input class="input mt-3" type="password" placeholder="password" v-model="form.password">
+          <input class="input" type="text" placeholder="username" v-model.trim="form.username">
+          <input class="input mt-3" type="password" placeholder="password" v-model.trim="form.password">
           <input class="button mt-3" type="button" value="Login/Register" @click="login" :disabled="form.username.length === 0 || form.password.length === 0">
         </div>
       </div>

@@ -54,7 +54,6 @@ const estimatePrice = () => {
 }
 
 const confirm = async () => {
-  form.value.starting_price = +form.value.starting_price
   axios
     .post(`http://127.0.0.1:8000/auctions`, form.value)
     .then(res => {
@@ -73,9 +72,9 @@ const confirm = async () => {
       <h2 class="font-bold text-lg text-white mb-1">Start an auction</h2>
       <div class="">
         <div class="w-100">
-          <input class="input w-60" type="text" placeholder="example" v-model="form.sld" @blur="estimatePrice()">
+          <input class="input w-60" type="text" placeholder="example" v-model.trim="form.sld" @blur="estimatePrice()">
           <span class="text-white font-bold ml-2">.</span>
-          <input class="input w-20 ml-2 mt-3 text-center" type="text" placeholder="com" v-model="form.tld" @blur="estimatePrice()">
+          <input class="input w-20 ml-2 mt-3 text-center" type="text" placeholder="com" v-model.trim="form.tld" @blur="estimatePrice()">
         </div>
 
         <div class="w-100 mt-1">
@@ -84,11 +83,11 @@ const confirm = async () => {
 
         <div class="w-100 mt-3 relative">
           <span class="starting-price__dollar | text-white/50 select-none">$</span>
-          <input class="starting-price__input | w-40 input" type="text" :placeholder="estimatedPrice || 200" v-model="form.starting_price" :disabled="estimatedPrice === null">
+          <input class="starting-price__input | w-40 input" type="text" :placeholder="estimatedPrice || 200" v-model.number="form.starting_price" :disabled="estimatedPrice === null">
         </div>
 
         <div class="w-100 mt-4">
-          <textarea class="input w-100" rows="5" maxlength="1000" placeholder="Description here" v-model="form.description"></textarea>
+          <textarea class="input w-100" rows="5" maxlength="1000" placeholder="Description here" v-model.trim="form.description"></textarea>
         </div>
 
         <div class="w-100 mt-5">
