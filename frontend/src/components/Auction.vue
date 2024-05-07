@@ -7,11 +7,6 @@ const startingPrice = computed(() => {
   return new Intl.NumberFormat().format(props.auction.starting_price)
 })
 
-const description = computed(() => {
-  let description = String(props.auction.description)
-  return description.replace("\n", '<br>')
-})
-
 const timer = ref({
   days: 999,
   hours: 0,
@@ -53,7 +48,7 @@ onMounted(async () => {
     </div>
 
     <div>
-      <p class="text-white font-light mt-2 mb-1" v-html="description"></p>
+      <p class="text-white font-light mt-2 mb-1 whitespace-pre-line" v-html="auction.description"></p>
     </div>
   </div>
 </template>
