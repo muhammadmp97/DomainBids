@@ -9,13 +9,13 @@ import StartAuction from './components/Views/StartAuction.vue';
 import Profile from './components/Views/Profile.vue';
 import axios from 'axios';
 
-const routes = {
-  '^\/?$': Home,
-  '\/a\/[\\d]+': Auction,
-  '^\/login$': Login,
-  '^\/start-auction$': StartAuction,
-  '\/u\/[\\d]+': Profile,
-}
+const routes = [
+  { path: '^\/?$', view: Home, requiresAuth: false },
+  { path: '\/a\/[\\d]+', view: Auction, requiresAuth: false },
+  { path: '^\/login$', view: Login, requiresAuth: false },
+  { path: '^\/start-auction$', view: StartAuction, requiresAuth: true },
+  { path: '\/u\/[\\d]+', view: Profile, requiresAuth: false },
+]
 
 const currentPath = ref(window.location.hash)
 
@@ -24,9 +24,9 @@ window.addEventListener('hashchange', () => {
 })
 
 const currentView = computed(() => {
-  for (let route in routes) {
-    if (new RegExp(route).test(currentPath.value.slice(1) || '/')) {
-      return routes[route]
+  for (let route of routes) {
+    if (new RegExp(route.path).test(currentPath.value.slice(1) || '/')) {
+      return route.view
     }
   }
 
@@ -42,6 +42,11 @@ onMounted(async () => {
     .get(`http://127.0.0.1:8000/auth`)
     .then(res => {
       Store.authenticated = true
+    })
+    .catch(err => {
+      if (err.response.status === 401) {
+        location.href = '/#/login'
+      }
     })
 })
 </script>

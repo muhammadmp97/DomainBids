@@ -1,7 +1,6 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import axios from 'axios'
-import { Store } from '../../store.js';
 
 const form = ref({
   sld: '',
@@ -13,13 +12,7 @@ const form = ref({
 const estimatedPrice = ref()
 
 const key = computed(() => {
-  return localStorage.getItem('db_token').substring(0, 7)
-})
-
-onMounted(async () => {
-  if (!Store.authenticated) {
-    location.href = '/#/login'
-  }
+  return localStorage.getItem('db_token')?.substring(0, 7)
 })
 
 const validateForm = () => {
