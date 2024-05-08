@@ -9,7 +9,7 @@ const startingPrice = computed(() => {
   return new Intl.NumberFormat().format(props.startingPrice)
 })
 
-const isClosed = !isFuture(props.endsAt)
+const isClosed = !isFuture(new Date(`${props.endsAt} UTC`))
 </script>
 
 <template>
