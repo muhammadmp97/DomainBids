@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { computed } from 'vue';
 
 const props = defineProps(['id', 'domainName', 'topLevel', 'startingPrice', 'endsAt'])
@@ -15,9 +15,11 @@ const timer = ref({
   seconds: 0
 })
 
+let intervalId = null
+
 onMounted(() => {
   var delay = 5
-  let intervalId = setInterval(() => {
+  intervalId = setInterval(() => {
     let diff = (new Date(`${props.endsAt} UTC`) - new Date()) / 1000
     timer.value.days = Math.floor(diff / 86400)
     timer.value.hours = Math.floor(diff / 3600 % 24).toString().padStart(2, '0')
@@ -29,6 +31,10 @@ onMounted(() => {
       clearInterval(intervalId)
     }
   }, delay)
+})
+
+onUnmounted(() => {
+  clearInterval(intervalId)
 })
 </script>
 

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, computed, ref } from 'vue';
+import { onMounted, computed, ref, onUnmounted } from 'vue';
 
 const props = defineProps(['auction'])
 
@@ -14,9 +14,11 @@ const timer = ref({
   seconds: 0
 })
 
+let intervalId = null
+
 onMounted(async () => {
-  var delay = 5
-  let intervalId = setInterval(() => {
+  var delay = 1000
+  intervalId = setInterval(() => {
     let diff = (new Date(`${props.auction.ends_at} UTC`) - new Date()) / 1000
     timer.value.days = Math.floor(diff / 86400)
     timer.value.hours = Math.floor(diff / 3600 % 24).toString().padStart(2, '0')
@@ -28,6 +30,10 @@ onMounted(async () => {
       clearInterval(intervalId)
     }
   }, delay)
+})
+
+onUnmounted(() => {
+  clearInterval(intervalId)
 })
 </script>
 
